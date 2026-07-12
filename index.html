@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abdullah Mohammed — Portfolio (Under Construction)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#0c2338;
+    --paper-2:#0f2c45;
+    --grid: rgba(234,242,248,0.055);
+    --grid-strong: rgba(234,242,248,0.09);
+    --ink:#eaf2f8;
+    --muted:#7f97ad;
+    --accent:#ff7a3d;
+    --accent-2:#6fd8e8;
+    --line: rgba(234,242,248,0.18);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+      linear-gradient(var(--grid-strong) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-strong) 1px, transparent 1px);
+    background-size: 16px 16px, 16px 16px, 96px 96px, 96px 96px;
+    color:var(--ink);
+    font-family:'IBM Plex Mono', monospace;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--accent);color:var(--paper);}
+
+  .frame{
+    position:fixed;
+    inset:10px;
+    border:1px solid var(--line);
+    pointer-events:none;
+    z-index:5;
+  }
+  .frame::before,.frame::after{
+    content:"+";
+    position:absolute;
+    color:var(--muted);
+    font-size:12px;
+  }
+  .frame::before{top:-8px;left:-7px;}
+  .frame::after{bottom:-13px;right:-7px;}
+
+  .titleblock{
+    position:fixed;
+    left:26px;
+    bottom:26px;
+    z-index:6;
+    border:1px solid var(--line);
+    background:rgba(12,35,56,0.85);
+    backdrop-filter: blur(4px);
+    padding:12px 16px;
+    font-size:10.5px;
+    letter-spacing:.04em;
+    line-height:1.7;
+    color:var(--muted);
+    min-width:220px;
+  }
+  .titleblock strong{color:var(--ink);font-weight:600;}
+  .titleblock .row{display:flex;justify-content:space-between;gap:14px;}
+  .titleblock .rule{height:1px;background:var(--line);margin:6px 0;}
+
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding:120px 24px 200px;
+    position:relative;
+    z-index:2;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:11px;
+    letter-spacing:.14em;
+    color:var(--accent-2);
+    text-transform:uppercase;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px;height:7px;
+    background:var(--accent);
+    display:inline-block;
+    animation:blink 1.6s steps(1) infinite;
+  }
+  @keyframes blink{50%{opacity:.15;}}
+
+  h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:clamp(2.4rem, 6vw, 4.2rem);
+    line-height:1.02;
+    margin:0 0 20px;
+    letter-spacing:-0.01em;
+  }
+  h1 span{color:var(--accent);}
+
+  p.lede{
+    font-size:15px;
+    line-height:1.75;
+    color:var(--muted);
+    max-width:52ch;
+    margin:0 0 46px;
+  }
+
+  .room{
+    border:1px solid var(--line);
+    padding:22px 22px 24px;
+    margin-bottom:56px;
+    position:relative;
+  }
+  .room .tag{
+    position:absolute;
+    top:-11px;
+    left:16px;
+    background:var(--paper);
+    padding:0 8px;
+    font-size:10.5px;
+    letter-spacing:.1em;
+    color:var(--accent-2);
+    text-transform:uppercase;
+  }
+  .room-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .room h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:1.15rem;
+    margin:0 0 4px;
+  }
+  .room p{
+    margin:0;
+    font-size:12.5px;
+    color:var(--muted);
+  }
+  .enter{
+    flex-shrink:0;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:1px solid var(--accent);
+    color:var(--accent);
+    text-decoration:none;
+    padding:10px 16px;
+    font-size:12px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    transition:background .15s ease, color .15s ease;
+  }
+  .enter:hover{background:var(--accent);color:var(--paper);}
+  .enter:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;}
+
+  .legend-title{
+    font-size:11px;
+    letter-spacing:.14em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin:0 0 16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .legend-title::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+
+  .legend{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(96px,1fr));
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .legend a{
+    background:var(--paper);
+    text-decoration:none;
+    padding:16px 8px 12px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    transition:background .15s ease;
+  }
+  .legend a:hover, .legend a:focus-visible{
+    background:var(--paper-2);
+    outline:none;
+  }
+  .legend a:hover svg, .legend a:focus-visible svg{
+    stroke:var(--accent);
+  }
+  .legend svg{
+    width:20px;height:20px;
+    stroke:var(--ink);
+    fill:none;
+    stroke-width:1.6;
+    transition:stroke .15s ease;
+  }
+  .legend span{
+    font-size:9px;
+    letter-spacing:.05em;
+    color:var(--muted);
+    text-transform:uppercase;
+  }
+
+  footer{
+    margin-top:60px;
+    font-size:11px;
+    color:var(--muted);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    border-top:1px solid var(--line);
+    padding-top:18px;
+  }
+  footer a{text-decoration:underline;text-underline-offset:3px;}
+
+  @media (max-width:640px){
+    .titleblock{position:static;margin:0 24px 0;left:auto;bottom:auto;width:calc(100% - 48px);}
+    .wrap{padding-top:24px;}
+    .frame{display:none;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .eyebrow::before{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="frame"></div>
+
+<div class="titleblock">
+  <div class="row"><span>DRAWING NO.</span><strong>FPF-001</strong></div>
+  <div class="row"><span>PROJECT</span><strong>PERSONAL PORTFOLIO</strong></div>
+  <div class="rule"></div>
+  <div class="row"><span>DRAWN BY</span><strong>A. MOHAMMED</strong></div>
+  <div class="row"><span>STATUS</span><strong>UNDER CONSTRUCTION</strong></div>
+  <div class="row"><span>REV</span><strong>01</strong></div>
+</div>
+
+<div class="wrap">
+
+  <div class="eyebrow">Site under construction</div>
+
+  <h1>Building this,<br><span>in public.</span></h1>
+
+  <p class="lede">Civil engineer building across STEM — code, AI/ML, robotics, and wherever else it goes. The full site is still being drafted. Here's what's already built, and where to follow the rest as it happens.</p>
+
+  <div class="room">
+    <span class="tag">Room 01</span>
+    <div class="room-inner">
+      <div>
+        <h2>My First Project</h2>
+        <p>Where the journey started — the first thing I shipped.</p>
+      </div>
+      <a class="enter" href="https://futureprooffoundations.github.io/My-first-project/" target="_blank" rel="noopener">Enter →</a>
+    </div>
+  </div>
+
+  <div class="legend-title">Legend — find me elsewhere</div>
+  <div class="legend">
+
+    <a href="https://www.youtube.com/@FutureproofFoundations" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="3"/><path d="M10.5 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg>
+      <span>YouTube</span>
+    </a>
+
+    <a href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M4 4l16 16M20 4L4 20"/></svg>
+      <span>X</span>
+    </a>
+
+    <a href="https://linkedin.com/in/abdullah-mohammed89" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7.5" y1="10" x2="7.5" y2="17"/><circle cx="7.5" cy="6.5" r="0.6" fill="currentColor" stroke="none"/><path d="M11.5 17v-4.5c0-1.5 1-2.5 2.3-2.5s2.2 1 2.2 2.5V17"/></svg>
+      <span>LinkedIn</span>
+    </a>
+
+    <a href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="0.6" fill="currentColor" stroke="none"/></svg>
+      <span>Instagram</span>
+    </a>
+
+    <a href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M12 21c-4.5-2-6.5-5.5-6.5-9.5C5.5 6.8 8.2 4 12 4c3.4 0 5.7 2 5.7 4.7 0 2.3-1.6 3.8-3.6 3.8-1.4 0-2.3-.8-2.3-2 0-1 .6-1.8.6-2.8 0-.7-.4-1.1-1-1.1-1.1 0-2 1.3-2 2.9 0 1 .3 1.7.3 1.7s-1.2 5-1.4 5.9c-.2 1-.1 2.1.1 2.9"/></svg>
+      <span>Threads</span>
+    </a>
+
+    <a href="https://github.com/futureprooffoundations" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 00-2.8 17.5c.4.1.6-.2.6-.4v-1.7c-2.6.6-3.1-1.1-3.1-1.1-.4-1-1-1.3-1-1.3-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .8 1.4 2.2 1 2.8.8.1-.6.3-1 .6-1.3-2.1-.2-4.3-1-4.3-4.6 0-1 .4-1.9 1-2.5-.1-.2-.4-1.2.1-2.5 0 0 .8-.3 2.7 1a9.4 9.4 0 015 0c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.5.6.6 1 1.5 1 2.5 0 3.6-2.2 4.4-4.3 4.6.3.3.6.9.6 1.8v2.6c0 .2.2.5.6.4A9 9 0 0012 3z"/></svg>
+      <span>GitHub</span>
+    </a>
+
+    <a href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M15 3v10.5a3.5 3.5 0 11-3.5-3.5c.4 0 .8.06 1.2.16"/><path d="M15 3c.4 2.2 2 3.8 4.2 4.1"/></svg>
+      <span>TikTok</span>
+    </a>
+
+    <a href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M5 20l2.6-8.5C7.2 10.4 7 9.4 7 8.5 7 6 8.8 4.5 11 4.5c1.9 0 3.2 1.1 3.2 2.9 0 1-.4 2.1-.9 3.7l-.9 3c.7 1 1.7 1.5 2.9 1.5 2.6 0 4.4-2.6 4.4-6 0-3.6-2.7-6.2-6.6-6.2-4.4 0-7.4 3.1-7.4 7 0 1.5.5 2.7 1.2 3.5"/></svg>
+      <span>Upwork</span>
+    </a>
+
+    <a href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="1.5"/><path d="M9 8V6.5A2.5 2.5 0 0111.5 4h1A2.5 2.5 0 0115 6.5V8"/></svg>
+      <span>Mostaql</span>
+    </a>
+
+    <a href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7.5"/><circle cx="9" cy="13" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="13" r="1" fill="currentColor" stroke="none"/><path d="M9 16.5c.8.7 1.9 1 3 1s2.2-.3 3-1"/><circle cx="18.5" cy="7" r="1.3"/><path d="M17.3 8L15 10"/><circle cx="8" cy="6" r="0.8"/><circle cx="16" cy="6" r="0.8"/></svg>
+      <span>Reddit</span>
+    </a>
+
+    <a href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="15.5" x2="15" y2="15.5"/></svg>
+      <span>RedNote</span>
+    </a>
+
+    <a href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 13l4-4 4 4"/><path d="M8 17l4-4 4 4"/></svg>
+      <span>Upscrolled</span>
+    </a>
+
+    <a href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M12 4c2.5 0 4 1.8 4 4.2 0 1-.2 1.8-.2 1.8s1.4.2 1.7 1.3c.2.7-.3 1.2-.8 1.5.3.5.2 1-.2 1.3-.1.5.1.9-.4 1.3-.1.9-1 1.1-1.7 1-.4.8-1.3 1.1-2.4 1.1s-2-.3-2.4-1.1c-.7.1-1.6-.1-1.7-1-.5-.4-.3-.8-.4-1.3-.4-.3-.5-.8-.2-1.3-.5-.3-1-.8-.8-1.5.3-1.1 1.7-1.3 1.7-1.3S8 9.2 8 8.2C8 5.8 9.5 4 12 4z"/></svg>
+      <span>Snapchat</span>
+    </a>
+
+  </div>
+
+  <footer>
+    <span>© <span id="yr"></span> Abdullah Mohammed — FutureproofFoundations</span>
+    <a href="mailto:abdullahmotwa@gmail.com">abdullahmotwa@gmail.com</a>
+  </footer>
+
+</div>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
